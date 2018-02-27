@@ -1,4 +1,6 @@
 (function($) {
+console.log('assets/data/data.json');
+
   var app = $.sammy('#main', function() {
     this.use('Template');
     this.use('Session');
