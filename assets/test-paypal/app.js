@@ -15,50 +15,48 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => res.render('index'));
 
 
-
 app.post('/pay', (req, res) => {
   //  const price = $('#total').html();
-    //const total = (window['total'].innerHTML);
-   // console.log(total);
+  // const total = (window['total'].innerHTML);
+  // console.log(total);
   const create_payment_json = {
-    "intent": "sale",
-    "payer": {
-        "payment_method": "paypal"
+    'intent': 'sale',
+    'payer': {
+      'payment_method': 'paypal'
     },
-    "redirect_urls": {
-        "return_url": "http://localhost:3000/success",
-        "cancel_url": "http://localhost:3000/cancel"
+    'redirect_urls': {
+      'return_url': 'http://localhost:3000/success',
+      'cancel_url': 'http://localhost:3000/cancel'
     },
-    "transactions": [{
-        "item_list": {
-            "items": [{
-                "name": "Red Sox Hat",
-                "sku": "001",
-                "price": "25.00",
-                "currency": "USD",
-                "quantity": 1
-            }]
-        },
-        "amount": {
-            "currency": "USD",
-            "total": "25.00"
-        },
-        "description": "Hat for the best team ever"
+    'transactions': [{
+      'item_list': {
+        'items': [{
+          'name': 'Spring fever embroidered linen top',
+          'sku': '001',
+          'price': '$23.98',
+          'currency': 'USD',
+          'quantity': 1
+        }]
+      },
+      'amount': {
+        'currency': 'USD',
+        'total': '$23.98'
+      },
+      'description': 'Spring fever embroidered linen top'
     }]
-};
+  };
 
-paypal.payment.create(create_payment_json, function (error, payment) {
-  if (error) {
+  paypal.payment.create(create_payment_json, function(error, payment) {
+    if (error) {
       throw error;
-  } else {
-      for(let i = 0;i < payment.links.length;i++){
-        if(payment.links[i].rel === 'approval_url'){
+    } else {
+      for (let i = 0;i < payment.links.length;i++) {
+        if (payment.links[i].rel === 'approval_url') {
           res.redirect(payment.links[i].href);
         }
       }
-  }
-});
-
+    }
+  });
 });
 
 app.get('/success', (req, res) => {
@@ -66,24 +64,24 @@ app.get('/success', (req, res) => {
   const paymentId = req.query.paymentId;
 
   const execute_payment_json = {
-    "payer_id": payerId,
-    "transactions": [{
-        "amount": {
-            "currency": "USD",
-            "total": "25.00"
-        }
+    'payer_id': payerId,
+    'transactions': [{
+      'amount': {
+        'currency': 'USD',
+        'total': '$23.98'
+      }
     }]
   };
 
-  paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+  paypal.payment.execute(paymentId, execute_payment_json, function(error, payment) {
     if (error) {
-        console.log(error.response);
-        throw error;
+      console.log(error.response);
+      throw error;
     } else {
-        console.log(JSON.stringify(payment));
-        res.send('Success');
+      console.log(JSON.stringify(payment));
+      res.send('Success');
     }
-});
+  });
 });
 
 app.get('/cancel', (req, res) => res.send('Cancelled'));
