@@ -1,4 +1,4 @@
-<div class="card item" style="width: 25.1rem; margin:1rem; text-align: center;">
+<div class="card item" style="width: 25.1rem; margin:1rem 20rem; text-align: center;">
 <a href="#/item/<%= id %>"><img class="card-img-top" src="<%= item.image %>" alt="<%= item.title %>" style="width: 25rem;"/></a>
   <div class="card-block">
 	<div class="item-title card-title"><%= item.title %></div>
