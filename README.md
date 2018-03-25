@@ -32,5 +32,8 @@ El proyecto fue realizado con los siguientes recursos:
  - Express `^4.16.2`
  - Sammyjs `^0.7.6`
 
+## Desarrollado para
+
+Laboratoria
 
 ***
